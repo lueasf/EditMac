@@ -16,7 +16,7 @@ aucun = 0
 t1 = datetime.now()
 
 try:
-    for port in range(1, 27):
+    for port in range(1, 1025):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # on ouvre une connexion TCP avec ipv4. AF_INET6 pour ipv6.
         res = sock.connect_ex((ip, port))
