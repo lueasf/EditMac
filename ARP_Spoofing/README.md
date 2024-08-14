@@ -17,7 +17,7 @@ On doit configurer le réseau de la VM en bridge pour que:
 -la VM à son propre accès internet
 Contrairement au mode NAT par défaut qui ne permet pas de voir la VM depuis le réseau local.
 
-Une fois la VM configurée, on peut voir avec *ipconfig* sur la VM qu'une adresse IP a été attribuée et qu'elle est dans le meme réseau que la machine hôte. (ici 192.168.68.). On utilise *ifconfig* sur linux.
+Une fois la VM configurée, on peut voir avec *ipconfig* sur la VM qu'une adresse IP a été attribuée et qu'elle est dans le meme réseau que la machine hôte. (ici 192.168.68.). On utilise *ifconfig* sur linux. Pour avoir l'adresse MAC de la VM, on utilise ipconfig /all sur la VM ou arp -a sur linux.
 
 Pour continuer l'experience, il faut passer le réseau du public à privée dans les paramètres de réseau de la VM, sinon windows va bloquer les paquets ARP. De plus, il est possible de pouvoir ping linux depuis la VM mais l'inverse. Dans ce cas, il faut activer la règle : "File and Printer Sharing (Echo Request - ICMPv4-In)" dans les paramètres avancés du pare-feu de Windows.
 
@@ -31,8 +31,10 @@ dans le terminal linux afin de voir les machines connectées au réseau. On trou
 ## Librairies
 - scapy (pip install)
 
-## attaques
-on fait dabord un ping des deux cotés pour mettre les adresses MAC dans la table ARP.
-puis on verifie avec arp -a que les adresses MAC sont bien enregistrées.
-enfin on fait sudo python3 arp_spoofing.py pour lancer l'attaque.
-et on peut voir sur la VM avec un arp -a que l'adresse MAC du linux est mnt associé à l'ip du linux ET du routeur.
+## Attaques
+Pour réaliser l'attaque, on fait un ping des deux côtés pour mettre les adresses MAC dans la table ARP. On peut verifier
+avec arp -a que les adresses MAC sont bien enregistrées.
+```bash
+sudo python3 arp_spoofing.py
+```
+On peut voir sur la VM avec un arp -a que l'adresse MAC du linux est mnt associé à l'ip du linux ET du routeur et ce de manière permanente.
